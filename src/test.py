@@ -1,0 +1,20 @@
+from Shortener import Mma
+
+m = Mma()
+var = """
+{catchupFunction,catchupOvertone,catchupPosition,currentOvertone,currentOvertonePosition,
+deleteNotesO,fitData,freqRatio2cents,freqRatio2pitch,guessNextOvertonePosition,guessOneOvertoneLengthSamples,headSampleVolume,
+ihFitScaling,ihfunc,ihFunction,ihFunctionExtraction,ihPlot,ihProperty,ihProperty0,ihProperty2,ihPropertyFunction,largefunc,maxBands,
+note2num,noteDict,noteNames,noteNums,noteRangeNum,noteRangeO,noteStartN,noteStartO,num2freq,num2note,num2wb,oneOvertoneLengthPoints,
+overtoneAnalysis,overtoneDifferenceCents,overtoneSequence,overtoneTable,revNoteDict,smallfunc,tailSampleVolume,tem,temArray,temDecode,
+temDirectory,temp,temRotate,tunCurveFunction,tunCurveObjFunction,tunCurvePlot,tunMethod,tunOptimize,tunPolyOrder,
+tunTrialPloy,vars,wavAnalyzeCutFrequency,wavAnalyzeCutOvertone,wavAnalyzeCutOvertoneF,wavAnalyzeOvertoneData,wavAnalyzeOvertoneDataPool,
+wavAnalyzePartitionTime,wavCatchupAnalyzeFrequencyBands,wavCatchupWeightedAverageBands,wavCutFrequency,wavData,wavDirectory,wavFourier,
+wavFourierCatchupPeakStart,wavFourierCatchupPeakStartPosition,wavGuessOneOvertoneLengthPosition,wavIdealFreq,wavImport,wavNames,
+wavOneOvertoneSamples,wavPartitions,wavPartitionsLength,wavPeakOvertone,wavPeakPosition,wavSampleRate,wavTrimData,
+weightedAverageOvertone,whiteBlackKeyDict,tunSplitPoint,tunBassOctave,tunBassOctavePitch,tunTenorOctave,tunTenorOctavePitch,
+tunCurveBassObjFunction,tunCurveTenorObjFunction,tunDeviation,tunDeviationPlot,tunLimitFreq,tunPartials,
+tunTable,playFreq,tunFile,readTunFile,tunFilePrepare,temDict,tunRestoreFunction,tunRestoreCentsFunction,temp2,
+tunTableString,tunTableStringCents,panel,guessOneOvertoneLengthPointsF,folder}
+"""
+print(m.shorten("pianoTuner_v20180605.wl", var))
