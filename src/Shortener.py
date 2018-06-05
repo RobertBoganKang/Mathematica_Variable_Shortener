@@ -78,6 +78,7 @@ class MmaShortener:
         var = [[x, self.count_vars(text, x, False)] for x in var]
         var.sort(key=lambda x: x[1])
         var = [row[0] for row in var]
+        var_keep = var.copy()
         letters = [chr(ord('a') + x) for x in range(26)]
         letter_nums = [str(x) for x in range(10)] + letters + [chr(ord('A') + x) for x in range(26)]
         result = []
@@ -115,8 +116,10 @@ class MmaShortener:
                 last_letter = current_letter
         # replace the ignored vars
         while len(ignore_vars) > 0:
-            result.append([used_vars.pop(), ignore_vars.pop()])
-        print(result)
+            if ignore_vars[-1] in var_keep:
+                result.append([used_vars.pop(), ignore_vars.pop()])
+            else:
+                ignore_vars.pop()
         return result
 
     def str_replace(self, text, word, sub):
