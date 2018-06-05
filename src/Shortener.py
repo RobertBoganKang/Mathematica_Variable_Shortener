@@ -1,6 +1,3 @@
-from random import shuffle
-
-
 class MmaShortener:
     def one_line(self, text):
         """
@@ -38,15 +35,17 @@ class MmaShortener:
             f.truncate()
             f.write(text)
 
-    def contains_vars(self, text, word):
+    def count_vars(self, text, word, terminate):
         """
         test content contains target variable
         :param text: str (text content)
         :param word: str (target variable)
-        :return: bool (True: contains)
+        :param terminate: bool (terminate function)
+        :return: int (0: not contain)
         """
         is_comment = False
         wl = len(word)
+        count = 0
         i = 1
         text = "#" + text + "#"
         while i < len(text) - wl:
@@ -61,9 +60,12 @@ class MmaShortener:
             string = text[i:i + wl]
             if not is_comment and string == word and not (text[i - 1].isalpha() or text[i - 1].isalnum()) and not (
                     text[i + wl].isalpha() or text[i + wl].isalnum()):
-                return True
+                if terminate:
+                    return 1
+                else:
+                    count += 1
             i += 1
-        return False
+        return count
 
     def vars_dict(self, text, var):
         """
@@ -73,7 +75,9 @@ class MmaShortener:
         :return: list(list()) (map for substitute shorten text form)
         """
         var = list(set(var))
-        shuffle(var)
+        var = [[x, self.count_vars(text, x, False)] for x in var]
+        var.sort(key=lambda x: x[1])
+        var = [row[0] for row in var]
         letters = [chr(ord('a') + x) for x in range(26)]
         letter_nums = [str(x) for x in range(10)] + letters + [chr(ord('A') + x) for x in range(26)]
         result = []
@@ -82,7 +86,7 @@ class MmaShortener:
         # less than letters length
         i = 0
         while len(var) > 0 and i < len(letters):
-            if self.contains_vars(text, letters[i]):
+            if self.count_vars(text, letters[i], True) != 0:
                 ignore_vars.append(letters[i])
                 i += 1
                 continue
@@ -98,7 +102,7 @@ class MmaShortener:
                     for i in range(len(letter_nums)):
                         built_letter = last_letter[j] + letter_nums[i]
                         current_letter.append(built_letter)
-                        if self.contains_vars(text, built_letter):
+                        if self.count_vars(text, built_letter, True) != 0:
                             ignore_vars.append(built_letter)
                             continue
                         if len(var) > 0:
