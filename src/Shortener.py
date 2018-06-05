@@ -163,7 +163,6 @@ class MmaShortener:
         """
         result = ""
         i = 0
-        ignore = {"[", "]", "{", "}", "_", "=", ""}
         while i < len(string) - 1:
             if string[i] == "(" and string[i + 1] == "*":
                 while i < len(string) - 1 and not (string[i] == "*" and string[i + 1] == ")"):
