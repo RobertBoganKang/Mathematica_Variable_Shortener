@@ -1,6 +1,6 @@
-from Shortener import Mma
+from Shortener import MmaShortener
 
-m = Mma()
+m = MmaShortener()
 var = """
 {catchupFunction,catchupOvertone,catchupPosition,currentOvertone,currentOvertonePosition,
 deleteNotesO,fitData,freqRatio2cents,freqRatio2pitch,guessNextOvertonePosition,guessOneOvertoneLengthSamples,headSampleVolume,
@@ -15,6 +15,7 @@ wavOneOvertoneSamples,wavPartitions,wavPartitionsLength,wavPeakOvertone,wavPeakP
 weightedAverageOvertone,whiteBlackKeyDict,tunSplitPoint,tunBassOctave,tunBassOctavePitch,tunTenorOctave,tunTenorOctavePitch,
 tunCurveBassObjFunction,tunCurveTenorObjFunction,tunDeviation,tunDeviationPlot,tunLimitFreq,tunPartials,
 tunTable,playFreq,tunFile,readTunFile,tunFilePrepare,temDict,tunRestoreFunction,tunRestoreCentsFunction,temp2,
-tunTableString,tunTableStringCents,panel,guessOneOvertoneLengthPointsF,folder}
+tunTableString,tunTableStringCents,panel,guessOneOvertoneLengthPointsF,folder,A,B,x,s,i,j}
 """
 print(m.shorten("pianoTuner_v20180605.wl", var))
+

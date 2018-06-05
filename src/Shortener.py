@@ -1,4 +1,4 @@
-class Mma:
+class MmaShortener:
     def one_line(self, text):
         """
         remove line breaks
@@ -35,34 +35,56 @@ class Mma:
             f.truncate()
             f.write(text)
 
-    def vars_dict(self, var):
+    def contains_vars(self, text, word):
+        is_comment = False
+        l = len(word)
+        i = 1
+        text = "#" + text + "#"
+        while i < len(text) - l:
+            if text[i] == "\"":
+                is_comment = not is_comment
+            string = text[i:i + l]
+            if not is_comment and string == word and not (text[i - 1].isalpha() and text[i - 1].isalnum()) and not (
+                    text[i + l].isalpha() and text[i + l].isalnum()):
+                return True
+            i += 1
+        return False
+
+    def vars_dict(self, text, var):
         """
         convert variables to shorten form
+        :type text: str
         :param var: list() (variable list)
         :return: list(list()) (map for substitute shorten text form)
         """
         var = list(set(var))
         var.sort()
         var.reverse()
-        letters = [chr(ord('a') + x) for x in range(26)]
+        letters = [chr(ord('a') + x) for x in range(26)] + [chr(ord('A') + x) for x in range(26)]
         letter_nums = [str(x) for x in range(10)] + letters
         result = []
-        # less than 26
+        # less than letters length
         i = 0
-        while len(var) > 0 and i < 26:
+        while len(var) > 0 and i < len(letters):
+            if self.contains_vars(text, letters[i]):
+                i += 1
+                continue
             var_now = var.pop()
             result.append([var_now, letters[i]])
             i += 1
-        # more than 26
+        # more than letters
         current_letter = []
-        last_letter = letter_nums
+        last_letter = letters
         if len(var) > 0:
             while len(var) > 0:
-                for i in range(len(letter_nums)):
-                    for j in range(len(last_letter)):
+                for j in range(len(last_letter)):
+                    for i in range(len(letter_nums)):
+                        built_letter = last_letter[j] + letter_nums[i]
+                        current_letter.append(built_letter)
+                        if self.contains_vars(text, built_letter):
+                            j += 1
+                            continue
                         if len(var) > 0:
-                            built_letter = letters[i] + last_letter[j]
-                            current_letter.append(built_letter)
                             var_now = var.pop()
                             result.append([var_now, built_letter])
                         else:
@@ -164,7 +186,7 @@ class Mma:
         var = self.str2list(var)
         content = self.open_file(file)
         content = self.one_line(content)
-        subs = self.vars_dict(var)
+        subs = self.vars_dict(content, var)
         content = self.str_substitute(content, subs)
         content = self.remove_comment(content)
         self.write_file("out.txt", content)
