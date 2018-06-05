@@ -17,5 +17,5 @@ tunCurveBassObjFunction,tunCurveTenorObjFunction,tunDeviation,tunDeviationPlot,t
 tunTable,playFreq,tunFile,readTunFile,tunFilePrepare,temDict,tunRestoreFunction,tunRestoreCentsFunction,temp2,
 tunTableString,tunTableStringCents,panel,guessOneOvertoneLengthPointsF,folder,A,B,x,s,i,j}
 """
-print(m.shorten("pianoTuner_v20180605.wl", var))
+print(m.shorten("pianoTuner_v20180605", var))
 
