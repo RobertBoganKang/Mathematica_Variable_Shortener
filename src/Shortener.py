@@ -59,8 +59,8 @@ class MmaShortener:
             if i >= len(text) - wl:
                 break
             string = text[i:i + wl]
-            if not is_comment and string == word and not (text[i - 1].isalpha() and text[i - 1].isalnum()) and not (
-                    text[i + wl].isalpha() and text[i + wl].isalnum()):
+            if not is_comment and string == word and not (text[i - 1].isalpha() or text[i - 1].isalnum()) and not (
+                    text[i + wl].isalpha() or text[i + wl].isalnum()):
                 return True
             i += 1
         return False
@@ -92,7 +92,7 @@ class MmaShortener:
             i += 1
         # more than letters
         current_letter = []
-        last_letter = letters + [chr(ord('A') + x) for x in range(26)]
+        last_letter = letters
         if len(var) > 0:
             while len(var) > 0:
                 for j in range(len(last_letter)):
@@ -138,8 +138,8 @@ class MmaShortener:
             if i >= len(text) - wl:
                 break
             string = text[i:i + wl]
-            if not is_comment and string == word and not (text[i - 1].isalpha() and text[i - 1].isalnum()) and not (
-                    text[i + wl].isalpha() and text[i + wl].isalnum()):
+            if not is_comment and string == word and not (text[i - 1].isalpha() or text[i - 1].isalnum()) and not (
+                    text[i + wl].isalpha() or text[i + wl].isalnum()):
                 string_builder += sub
                 i += wl
             else:
