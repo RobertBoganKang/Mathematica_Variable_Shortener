@@ -161,8 +161,8 @@ class MmaShortener:
     def str2list(self, string):
         """
         var strings to list for python
-        :param string:
-        :return:
+        :param string: str
+        :return: list() (variable list)
         """
         lst = []
         word = ""
