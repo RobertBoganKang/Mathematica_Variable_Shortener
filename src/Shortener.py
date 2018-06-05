@@ -116,6 +116,7 @@ class MmaShortener:
         # replace the ignored vars
         while len(ignore_vars) > 0:
             result.append([used_vars.pop(), ignore_vars.pop()])
+        print(result)
         return result
 
     def str_replace(self, text, word, sub):

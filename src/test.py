@@ -1,4 +1,5 @@
 from Shortener import MmaShortener
+from random import shuffle
 
 m = MmaShortener()
 var = """
@@ -15,7 +16,6 @@ wavOneOvertoneSamples,wavPartitions,wavPartitionsLength,wavPeakOvertone,wavPeakP
 weightedAverageOvertone,whiteBlackKeyDict,tunSplitPoint,tunBassOctave,tunBassOctavePitch,tunTenorOctave,tunTenorOctavePitch,
 tunCurveBassObjFunction,tunCurveTenorObjFunction,tunDeviation,tunDeviationPlot,tunLimitFreq,tunPartials,
 tunTable,playFreq,tunFile,readTunFile,tunFilePrepare,temDict,tunRestoreFunction,tunRestoreCentsFunction,temp2,
-tunTableString,tunTableStringCents,panel,guessOneOvertoneLengthPointsF,folder,A,B,x,s,i,j}
+tunTableString,tunTableStringCents,panel,guessOneOvertoneLengthPointsF,folder,A,B,x,s,i,j,k,n}
 """
 print(m.shorten("pianoTuner_v20180605", var))
-
