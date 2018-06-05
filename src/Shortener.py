@@ -1,4 +1,7 @@
 class MmaShortener:
+    def __init__(self):
+        self.build_in_vars = {"N", "E"}
+
     def one_line(self, text):
         """
         remove line breaks
@@ -72,8 +75,8 @@ class MmaShortener:
         var = list(set(var))
         var.sort()
         var.reverse()
-        letters = [chr(ord('a') + x) for x in range(26)] + [chr(ord('A') + x) for x in range(26)]
-        letter_nums = [str(x) for x in range(10)] + letters
+        letters = [chr(ord('a') + x) for x in range(26)]
+        letter_nums = [str(x) for x in range(10)] + letters + [chr(ord('A') + x) for x in range(26)]
         result = []
         ignore_vars = []
         used_vars = []
@@ -89,7 +92,7 @@ class MmaShortener:
             i += 1
         # more than letters
         current_letter = []
-        last_letter = letters
+        last_letter = letters + [chr(ord('A') + x) for x in range(26)]
         if len(var) > 0:
             while len(var) > 0:
                 for j in range(len(last_letter)):
