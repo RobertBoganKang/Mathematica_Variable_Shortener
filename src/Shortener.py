@@ -1,7 +1,4 @@
 class MmaShortener:
-    def __init__(self):
-        self.build_in_vars = {"N", "E"}
-
     def one_line(self, text):
         """
         remove line breaks
