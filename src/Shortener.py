@@ -1,3 +1,6 @@
+from random import shuffle
+
+
 class MmaShortener:
     def one_line(self, text):
         """
@@ -70,8 +73,7 @@ class MmaShortener:
         :return: list(list()) (map for substitute shorten text form)
         """
         var = list(set(var))
-        var.sort()
-        var.reverse()
+        shuffle(var)
         letters = [chr(ord('a') + x) for x in range(26)]
         letter_nums = [str(x) for x in range(10)] + letters + [chr(ord('A') + x) for x in range(26)]
         result = []
