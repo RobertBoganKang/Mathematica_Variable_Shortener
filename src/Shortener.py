@@ -36,6 +36,12 @@ class MmaShortener:
             f.write(text)
 
     def contains_vars(self, text, word):
+        """
+        test content contains target variable
+        :param text: str (text content)
+        :param word: str (target variable)
+        :return: bool (True: contains)
+        """
         is_comment = False
         wl = len(word)
         i = 1
