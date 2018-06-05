@@ -37,15 +37,21 @@ class MmaShortener:
 
     def contains_vars(self, text, word):
         is_comment = False
-        l = len(word)
+        wl = len(word)
         i = 1
         text = "#" + text + "#"
-        while i < len(text) - l:
+        while i < len(text) - wl:
             if text[i] == "\"":
                 is_comment = not is_comment
-            string = text[i:i + l]
+            if text[i] == "(" and text[i + 1] == "*":
+                while not (text[i] == "*" and text[i + 1] == ")"):
+                    i += 1
+                i += 2
+            if i >= len(text) - wl:
+                break
+            string = text[i:i + wl]
             if not is_comment and string == word and not (text[i - 1].isalpha() and text[i - 1].isalnum()) and not (
-                    text[i + l].isalpha() and text[i + l].isalnum()):
+                    text[i + wl].isalpha() and text[i + wl].isalnum()):
                 return True
             i += 1
         return False
@@ -63,14 +69,17 @@ class MmaShortener:
         letters = [chr(ord('a') + x) for x in range(26)] + [chr(ord('A') + x) for x in range(26)]
         letter_nums = [str(x) for x in range(10)] + letters
         result = []
+        ignore_vars = []
+        used_vars = []
         # less than letters length
         i = 0
         while len(var) > 0 and i < len(letters):
             if self.contains_vars(text, letters[i]):
+                ignore_vars.append(letters[i])
                 i += 1
                 continue
-            var_now = var.pop()
-            result.append([var_now, letters[i]])
+            result.append([var.pop(), letters[i]])
+            used_vars.append(letters[i])
             i += 1
         # more than letters
         current_letter = []
@@ -82,16 +91,19 @@ class MmaShortener:
                         built_letter = last_letter[j] + letter_nums[i]
                         current_letter.append(built_letter)
                         if self.contains_vars(text, built_letter):
-                            j += 1
+                            ignore_vars.append(built_letter)
                             continue
                         if len(var) > 0:
-                            var_now = var.pop()
-                            result.append([var_now, built_letter])
+                            result.append([var.pop(), built_letter])
+                            used_vars.append(built_letter)
                         else:
                             break
                     if len(var) == 0:
                         break
                 last_letter = current_letter
+        # replace the ignored vars
+        while len(ignore_vars) > 0:
+            result.append([used_vars.pop(), ignore_vars.pop()])
         return result
 
     def str_replace(self, text, word, sub):
@@ -104,18 +116,23 @@ class MmaShortener:
         """
         is_comment = False
         string_builder = ""
-        l = len(word)
+        wl = len(word)
         i = 1
         text = "#" + text + "#"
-        while i < len(text) - l:
+        while i < len(text) - wl:
             if text[i] == "\"":
                 is_comment = not is_comment
-
-            string = text[i:i + l]
+            if text[i] == "(" and text[i + 1] == "*":
+                while not (text[i] == "*" and text[i + 1] == ")"):
+                    i += 1
+                i += 2
+            if i >= len(text) - wl:
+                break
+            string = text[i:i + wl]
             if not is_comment and string == word and not (text[i - 1].isalpha() and text[i - 1].isalnum()) and not (
-                    text[i + l].isalpha() and text[i + l].isalnum()):
+                    text[i + wl].isalpha() and text[i + wl].isalnum()):
                 string_builder += sub
-                i += l
+                i += wl
             else:
                 string_builder += text[i]
                 i += 1
@@ -185,8 +202,8 @@ class MmaShortener:
         var = self.str2list(var)
         content = self.open_file(file)
         content = self.one_line(content)
-        subs = self.vars_dict(content, var)
         content = self.remove_comment(content)
+        subs = self.vars_dict(content, var)
         content = self.str_substitute(content, subs)
         self.write_file("out.txt", content)
         return content
