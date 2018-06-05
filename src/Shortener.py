@@ -186,7 +186,7 @@ class MmaShortener:
         content = self.open_file(file)
         content = self.one_line(content)
         subs = self.vars_dict(content, var)
-        content = self.str_substitute(content, subs)
         content = self.remove_comment(content)
+        content = self.str_substitute(content, subs)
         self.write_file("out.txt", content)
         return content
