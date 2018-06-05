@@ -11,5 +11,5 @@ a0000, ...
 ...
 ```
 ## Program functions
-* Shorten variables mannually with given variable candidate.
+* Shorten variables mannually with given variable candidate, higher frequent variable substitute with shorter form.
 * Remove all comments
