@@ -1,5 +1,4 @@
 from Shortener import MmaShortener
-from random import shuffle
 
 m = MmaShortener()
 var = """
