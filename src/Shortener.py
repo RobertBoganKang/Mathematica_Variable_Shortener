@@ -6,9 +6,12 @@ class MmaShortener:
         :return: str
         """
         new_text = ""
+        comment = False
         for i in range(len(text)):
             c = text[i]
-            if c == "\n":
+            if c == "\"":
+                comment = not comment
+            if not comment and c == ' ' or c == "\n":
                 continue
             new_text += c
         return new_text
