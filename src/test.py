@@ -1,4 +1,4 @@
-from Shortener import MmaShortener
+from src.Shortener import MmaShortener
 
 m = MmaShortener()
 var = """
